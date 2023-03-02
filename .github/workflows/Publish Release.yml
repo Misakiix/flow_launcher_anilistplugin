@@ -1,0 +1,40 @@
+name: Publish Release
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: 
+      - .github/workflows/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17.3.0'
+
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: 'plugin.json'
+          prop_path: 'Version'
+      
+      - name: Install dependencies
+        run: |
+            npm install
+            npm install flow-launcher-helper anilist-node
+            zip -r Flow.Launcher.Plugin.AnilistSearch.zip . -x '*.git*'
+      
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+          with:
+            files: 'Flow.Launcher.Plugin.AnilistSearch.zip'
+            tag_name: "v${{steps.version.outputs.prop}}"
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

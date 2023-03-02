@@ -1,0 +1,11 @@
+{
+    "ID": "2d5b17383a08495685df350ab8a296b3",
+    "ActionKeyword": "anilist",
+    "Name": "Anilist Search",
+    "Description": "With this plugin you can search animes from Anilist",
+    "Author": "Misakiix",
+    "Version": "1.0.0",
+    "Language": "javascript",
+    "Website": "https://github.com/Misakiix/flow_launcher_anilistplugin",
+    "IcoPath": "app.png"
+  }
